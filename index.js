@@ -4,11 +4,11 @@ const app = express();
 
 //Starts the server
 
-let server = app.listen(4000, function () {
+let server = app.listen(process.env.PORT||4000, function () {
   console.log("Server is running");
 });
 
-app.use(express.static("public"));
+app.use(express.static(__dirname+"/public"));
 
 //Upgrades the server to accept websockets.
 
