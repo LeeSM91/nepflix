@@ -1,4 +1,4 @@
-let socket = io.connect("https://localhost");
+let socket = io.connect("http://sub.domain.com:3000");
 let divVideoChatLobby = document.getElementById("video-chat-lobby");
 let divVideoChat = document.getElementById("video-chat-room");
 let joinButton = document.getElementById("join");
@@ -13,8 +13,8 @@ let userStream;
 // Contains the stun server URL we will be using.
 let iceServers = {
   iceServers: [
-    { urls: "stun:stun.services.mozilla.com" },
-    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun.services.mozilla.com"},
+    { urls: "stun:stun.l.google.com:19302"},
   ],
 };
 
