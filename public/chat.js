@@ -1,4 +1,4 @@
-let socket = io.connect("https://localhost:4000");
+let socket = io.connect("https://https://projectnepflix.herokuapp.com/");
 let divVideoChatLobby = document.getElementById("video-chat-lobby");
 let divVideoChat = document.getElementById("video-chat-room");
 let joinButton = document.getElementById("join");
