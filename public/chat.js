@@ -1,4 +1,4 @@
-let socket = io.connect("http://sub.domain.com:3000");
+let socket = io.connect("https://localhost:4000");
 let divVideoChatLobby = document.getElementById("video-chat-lobby");
 let divVideoChat = document.getElementById("video-chat-room");
 let joinButton = document.getElementById("join");
