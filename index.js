@@ -1,11 +1,10 @@
 const express = require("express");
 const socket = require("socket.io");
 const app = express();
-server = require('http').createServer(app),
 
 //Starts the server
 
-server.listen(process.env.PORT||4000, function () {
+let server = app.listen(process.env.PORT||4000, function () {
   console.log("Server is running");
 });
 
@@ -14,7 +13,6 @@ app.use(express.static(__dirname+"/public"));
 //Upgrades the server to accept websockets.
 
 let io = socket(server);
-
 
 //Triggered when a client is connected.
 
