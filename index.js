@@ -29,7 +29,7 @@ io.on("connection", function (socket) {
     if (room == undefined) {
       socket.join(roomName);
       socket.emit("created");
-    } else if (room.size == 5) {
+    } else if (room.size <= 5) {
       //room.size == 1 when one person is inside the room.
       socket.join(roomName);
       socket.emit("joined");
