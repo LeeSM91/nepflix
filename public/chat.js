@@ -1,7 +1,5 @@
 var socket = io.connect(window.location.href);
  
-let divVideoChatLobby = document.getElementById("video-chat-lobby");
-let divVideoChat = document.getElementById("video-chat-room");
 let joinButton = document.getElementById("join");
 let userVideo = document.getElementById("user-video");
 let peerVideo = document.getElementById("peer-video");
@@ -9,7 +7,6 @@ let creator = false;
 let rtcPeerConnection;
 let userStream;
 let roomnumber = 1010;
-// Contains the stun server URL we will be using.
 let iceServers = {
   iceServers: [
     { urls: "stun:stun.services.mozilla.com"},
@@ -24,7 +21,6 @@ joinButton.addEventListener("click", function () {
   
 });
 
-// Triggered when a room is succesfully created.
 
 socket.on("created", function () {
   creator = true;
@@ -34,10 +30,9 @@ socket.on("created", function () {
   navigator.mediaDevices
     .getUserMedia({
       audio: true,
-      video: { width: 1280, height: 720 },
+      video: { width: 300 },
     })
     .then(function (stream) {
-      /* use the stream */
       userStream = stream;
       userVideo.srcObject = stream;
       userVideo.onloadedmetadata = function (e) {
@@ -45,12 +40,9 @@ socket.on("created", function () {
       };
     })
     .catch(function (err) {
-      /* handle the error */
-      alert("Couldn't Access User Media");
     });
 });
 
-// Triggered when a room is succesfully joined.
 
 socket.on("joined", function () {
   creator = false;
@@ -59,10 +51,9 @@ socket.on("joined", function () {
   navigator.mediaDevices
     .getUserMedia({
       audio: true,
-      video: { width: 1280, height: 720 },
+      video: { width: 300 },
     })
     .then(function (stream) {
-      /* use the stream */
       userStream = stream;
       userVideo.srcObject = stream;
       userVideo.onloadedmetadata = function (e) {
@@ -71,18 +62,15 @@ socket.on("joined", function () {
       socket.emit("ready", roomnumber);
     })
     .catch(function (err) {
-      /* handle the error */
       alert("Couldn't Access User Media");
     });
 });
 
-// Triggered when a room is full (meaning has 2 people).
 
 socket.on("full", function () {
   alert("Room is Full, Can't Join");
 });
 
-// Triggered when a peer has joined the room and ready to communicate.
 
 socket.on("ready", function () {
   console.log("레디시작")
@@ -106,7 +94,6 @@ socket.on("ready", function () {
   }
 });
 
-// Triggered on receiving an ice candidate from the peer.
 
 socket.on("candidate", function (candidate) {
   console.log("칸디데이트시작")
@@ -115,7 +102,6 @@ socket.on("candidate", function (candidate) {
   rtcPeerConnection.addIceCandidate(icecandidate);
 });
 
-// Triggered on receiving an offer from the person who created the room.
 
 socket.on("offer", function (offer) {
   console.log("오퍼시작")
@@ -139,7 +125,6 @@ socket.on("offer", function (offer) {
   }
 });
 
-// Triggered on receiving an answer from the person who joined the room.
 
 socket.on("answer", function (answer) {
   console.log("엔서시작")
@@ -147,7 +132,6 @@ socket.on("answer", function (answer) {
   rtcPeerConnection.setRemoteDescription(answer);
 });
 
-// Implementing the OnIceCandidateFunction which is part of the RTCPeerConnection Interface.
 
 function OnIceCandidateFunction(event) {
   console.log("온아이스칸디데이트시작")
@@ -158,7 +142,6 @@ function OnIceCandidateFunction(event) {
   }
 }
 
-// Implementing the OnTrackFunction which is part of the RTCPeerConnection Interface.
 
 function OnTrackFunction(event) {
   console.log("온트랙펑션시작")
